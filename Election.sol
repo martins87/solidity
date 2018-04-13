@@ -104,7 +104,8 @@ contract Election is mortal {
         return totalVotes;
     }
     
-    function getHowManyWinners() public view returns(uint) {
+    function getHowManyWinners() public returns(uint) {
+        getWinners();
         return winners.length;
     }
     
@@ -115,7 +116,7 @@ contract Election is mortal {
         uint p;
         uint aux;
         
-        for (uint i = 0; i < winners.length; i++) {
+        for (uint i = 0; i  < winners.length; i++) {
             delete winners[i];
         }
         winners.length = 0;
