@@ -104,8 +104,7 @@ contract Election is mortal {
         return totalVotes;
     }
     
-    function getHowManyWinners() public returns(uint) {
-        getWinners();
+    function getHowManyWinners() public view returns(uint) {
         return winners.length;
     }
     
