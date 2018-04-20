@@ -50,6 +50,7 @@ contract Election is mortal {
     }
 
     function apply(string _name, string _passportID) public returns(bool){
+        require(bytes(_name).length > 0 && bytes(_passportID).length > 0);
         for (uint i = 0; i < candidates.length; i++) {
             require (stringsEqual(candidates[i].passportID, _passportID) == false); 
         }
