@@ -1,9 +1,9 @@
-pragma solidity ^0.4.21;
+pragma solidity ^0.4.20;
 
 contract owned {
     address owner;
     
-    function owned() public {
+    constructor() public {
         owner = msg.sender;
     }
     
@@ -19,7 +19,7 @@ contract mortal is owned {
         selfdestruct(owner);
     }
 }
-
+    
 contract Election is mortal {
     
     struct Candidate {
@@ -43,7 +43,7 @@ contract Election is mortal {
     Candidate[] public winners;
     Voter[] voters;
     
-    function Voting() public {
+    constructor() public {
         totalVotes = 0;
         numberOfCandidates = 0;
         winners.length = 0;
@@ -70,7 +70,7 @@ contract Election is mortal {
     }
     
     function vote(uint number) public returns(bool){
-        require(number <= candidates.length);
+        require(number < candidates.length);
         require(hasAddressVoted() == false);
         candidates[number].votes++;
         totalVotes++;
