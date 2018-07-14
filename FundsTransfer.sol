@@ -1,4 +1,4 @@
-pragma solidity ^0.4.23;
+pragma solidity ^0.4.24;
 
 contract owned {
     address owner;
@@ -29,8 +29,12 @@ contract FundsTransfer is mortal {
         return true;
     }
     
-    function getTotalETHSentToContract() public view returns (uint256) {
+    function getContractBalance() public view returns (uint256) {
         return address(this).balance;
+    }
+    
+    function getMyBalance() public view returns (uint) {
+        return msg.sender.balance;
     }
     
     function sendETHTo(address _to, uint _amount) public onlyowner returns (bool success){
@@ -39,8 +43,5 @@ contract FundsTransfer is mortal {
         return true;
     }
     
-    function getBalanceOf(address _address) public view returns (uint){
-        return address(_address).balance;
-    }
-
 }
+
