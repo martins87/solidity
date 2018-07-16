@@ -1,9 +1,9 @@
-pragma solidity ^0.4.24;
+pragma solidity ^0.4.18;
 
 contract FinalICO {
 
     /* This creates an array with all balances */
-    mapping (address => uint256) public balanceOf;
+    mapping (address => uint256) balanceOf;
     address owner;
     
     /* Initializes contract with initial supply tokens to the creator of the contract */
@@ -24,6 +24,10 @@ contract FinalICO {
         uint256 tokens = 100 * (msg.value / 1 ether);
         transfer(msg.sender, tokens);                           // Add the same to the recipient
     }
-
+    
+    function getBalance() public view returns(uint256) {
+        return balanceOf[msg.sender];
+    }
+    
 }
 
