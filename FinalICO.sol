@@ -1,4 +1,4 @@
-pragma solidity ^0.4.18;
+pragma solidity ^0.4.24;
 
 contract FinalICO {
 
@@ -7,7 +7,7 @@ contract FinalICO {
     address owner;
     
     /* Initializes contract with initial supply tokens to the creator of the contract */
-    function FinalICO(uint256 initialSupply) public {
+    constructor(uint256 initialSupply) public {
         balanceOf[msg.sender] = initialSupply;                 // Give the creator all initial tokens
         owner = msg.sender;
     }
@@ -26,5 +26,4 @@ contract FinalICO {
     }
 
 }
-
 
