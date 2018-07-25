@@ -1,12 +1,12 @@
 pragma solidity ^0.4.24;
 
 // ----------------------------------------------------------------------------
-// 'CruzeiroToken' token contract
+// 'Token' token contract
 //
-// Deployed to : 0x5b9c900a7F4e07d6e304F336C1030e16BA4dd334
-// Symbol      : CEC
-// Name        : Cruzeiro Token
-// Total supply: 19210000
+// Deployed to : msg.sender
+// Symbol      : TOK
+// Name        : Token Exammple
+// Total supply: 1000000
 // Decimals    : 18
 //
 // Enjoy.
@@ -116,7 +116,7 @@ contract Token is ERC20Interface, Owned, SafeMath {
         symbol = "TOK";
         name = "Token Example";
         decimals = 18;
-        _totalSupply = 19210000000000000000000000;
+        _totalSupply = 1000000000000000000000000;
         balances[msg.sender] = _totalSupply;
         emit Transfer(address(0), msg.sender, _totalSupply);
     }
