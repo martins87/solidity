@@ -1,4 +1,4 @@
-pragma solidity ^0.4.20;
+pragma solidity ^0.4.24;
 
 contract owned {
     address owner;
@@ -35,7 +35,7 @@ contract Election is mortal {
         bool _voted;
     }
     
-    uint numberOfRepresentatives = 10;
+    uint numberOfRepresentatives = 3;
     uint40 totalVotes;
     uint numberOfCandidates;
     uint[] candidatesVotes;
