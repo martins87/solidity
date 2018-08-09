@@ -80,24 +80,6 @@ contract PresidentialElection is mortal {
     bool draw;
     uint electionEnd;
     
-    function addCandidate(
-        uint number,
-        string politicalParty,
-        string name
-    ) public onlyowner returns (bool) {
-        require(now < electionEnd, "Election already ended");
-        require(
-            number > 0 &&
-            bytes(name).length > 0 &&
-            bytes(politicalParty).length > 0,
-            "Invalid parameters"
-        );
-        candidates.push(Candidate(number, politicalParty, name, 0));
-        candidateIndex[number] = numberOfCandidates;
-        numberOfCandidates++;
-        return true;
-    }
-    
     function vote(string voterID, uint candidateNumber) public returns (bool) {
         require(now < electionEnd, "Election already ended");
         require(voterIDAlreadyVoted[voterID] == false, "Voter already voted");
