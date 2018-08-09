@@ -22,8 +22,7 @@ contract mortal is owned {
 
 contract PresidentialElection is mortal {
     
-    constructor(uint _electionEnd) public {
-        require(_electionEnd > 0, "Election must have a time frame");
+    constructor() public {
         candidates.push(Candidate(12, "PDT", "Ciro Gomes", 0));
         candidates.push(Candidate(13, "PT", "Lula", 0));
         candidates.push(Candidate(15, "MDB", "Henrique Meirelles", 0));
@@ -50,7 +49,6 @@ contract PresidentialElection is mortal {
         candidateIndex[50] = 10;
         candidateIndex[51] = 11;
         candidateIndex[54] = 12;
-        electionEnd = now + _electionEnd;
     }
     
     struct Candidate {
@@ -77,11 +75,11 @@ contract PresidentialElection is mortal {
     uint numberOfCandidates = 13;
     uint mostVotes;
     
+    bool ended;
     bool draw;
-    uint electionEnd;
     
     function vote(string voterID, uint candidateNumber) public returns (bool) {
-        require(now < electionEnd, "Election already ended");
+        require(ended == false, "Election already ended");
         require(voterIDAlreadyVoted[voterID] == false, "Voter already voted");
         require(addressAlreadyVoted[msg.sender] == false, "Voter already voted");
         
@@ -94,42 +92,31 @@ contract PresidentialElection is mortal {
         return true;
     }
     
-    function getWinner() public view returns (string name, uint votes) {
-        if(draw == true) {
-            return ("He have a draw", mostVotes);
-        }
+    function getWinner() public view returns (string, uint) {
         uint w;
+        uint votes;
         for(uint i = 0; i < candidates.length; i++) {
             if(candidates[i].votes > votes) {
                 votes = candidates[i].votes;
                 w = i;
             }
         }
-        if(votes > 0) {
-            name = candidates[w].name;
-        }
-    }
-    
-    function checkForDraw() public returns (bool, uint) {
-        uint votes;
-        uint p;
-        for(uint i = 0; i < candidates.length; i++) {
-            if(candidates[i].votes > votes) {
-                votes = candidates[i].votes;
-                p = i;
-            }
-        }
-        mostVotes = votes;
         for(i = 0; i < candidates.length; i++) {
-            if(i == p) {
+            if(i == w) {
                 continue;
             }
             if(candidates[i].votes == votes) {
-                draw = true;
-                return (true, votes);
+                return ("We have a draw", votes);
             }
         }
-        return (false, votes);
+        if(votes > 0) {
+            return (candidates[w].name, votes);
+        }
+    }
+    
+    function endElection() public onlyowner returns (bool) {
+        ended = true;
+        return true;
     }
     
 }
