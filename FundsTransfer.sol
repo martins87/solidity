@@ -1,5 +1,6 @@
 pragma solidity ^0.4.24;
 
+/* example of an Access Control contract */
 contract owned {
     address owner;
     
@@ -22,9 +23,6 @@ contract mortal is owned {
 
 contract FundsTransfer is mortal {
 
-    constructor() public {
-    }
-    
     function sendETHToContract() public payable returns (bool success) {
         return true;
     }
@@ -37,11 +35,10 @@ contract FundsTransfer is mortal {
         return msg.sender.balance;
     }
     
-    function sendETHTo(address _to, uint _amount) public onlyowner returns (bool success){
+    function sendETHTo(address _to, uint _amount) public onlyowner payable returns (bool success){
         require(address(this).balance >= _amount);
         _to.transfer(_amount);
         return true;
     }
     
 }
-
