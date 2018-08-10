@@ -72,11 +72,7 @@ contract PresidentialElection is mortal {
     Candidate[] public candidates;
     Voter[] voters;
     
-    uint numberOfCandidates = 13;
-    uint mostVotes;
-    
     bool ended;
-    bool draw;
     
     function vote(string voterID, uint candidateNumber) public returns (bool) {
         require(ended == false, "Election already ended");
