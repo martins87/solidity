@@ -89,16 +89,16 @@ contract PresidentialElection is mortal {
     }
     
     function getWinner() public view returns (string, uint) {
-        uint w;
+        uint winnerIndex;
         uint votes;
         for(uint i = 0; i < candidates.length; i++) {
             if(candidates[i].votes > votes) {
                 votes = candidates[i].votes;
-                w = i;
+                winnerIndex = i;
             }
         }
         for(i = 0; i < candidates.length; i++) {
-            if(i == w) {
+            if(i == winnerIndex) {
                 continue;
             }
             if(candidates[i].votes == votes) {
@@ -106,7 +106,7 @@ contract PresidentialElection is mortal {
             }
         }
         if(votes > 0) {
-            return (candidates[w].name, votes);
+            return (candidates[winnerIndex].name, votes);
         }
     }
     
