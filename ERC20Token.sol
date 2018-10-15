@@ -99,7 +99,7 @@ contract Owned {
 // ERC20 Token, with the addition of symbol, name and decimals and assisted
 // token transfers
 // ----------------------------------------------------------------------------
-contract RemixToken is ERC20Interface, Owned, SafeMath {
+contract ERC20Token is ERC20Interface, Owned, SafeMath {
     string public symbol;
     string public name;
     uint8 public decimals;
