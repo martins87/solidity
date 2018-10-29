@@ -20,7 +20,7 @@ contract mortal is owned {
     }
 }
 
-contract Bet is mortal {
+contract Betting is mortal {
     
     uint public betValue;
     
