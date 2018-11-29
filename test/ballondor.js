@@ -125,7 +125,7 @@ contract("BallondOr", function() {
   });
 
   // testar lançamento de exceção para voto duplo do mesmo endereço
-  it("Lança excessão para tentativa de voto duplo do mesmo endereço", function() {
+  it("Lança exceção para tentativa de voto duplo do mesmo endereço", function() {
     /* testar:
         - mensagem de erro com revert
         - candidato específico não teve voto duplo computado
