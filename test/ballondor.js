@@ -93,11 +93,34 @@ contract("BallondOr", function() {
 
   // testar lançamento de exceção para voto em candidato inválido
   it("Lança exceção para voto em candidato inválido", function() {
+    /* testar:
+        - mensagem de erro com revert
+        - candidatos não tiveram número de votos alterado
+    */
     BallondOr.deployed().then(function(instance) {
       ballondorInstance = instance;
       return ballondorInstance.vote(79, { from: account });
     }).then(assert.fail).catch(function(error) {
       assert(error.message.indexOf('revert') >= 0);
+      return ballondorInstance.candidates(1);
+    }).then(function(candidate) {
+      assert.equal(candidate[2], '1', "Candidato " + candidate[1] + " recebeu incorretamente novo voto");
+      return ballondorInstance.candidates(2);
+    }).then(function(candidate) {
+      assert.equal(candidate[2], '0', "Candidato " + candidate[1] + " recebeu incorretamente novo voto");
+      return ballondorInstance.candidates(2);
+    }).then(function(candidate) {
+      assert.equal(candidate[2], '0', "Candidato " + candidate[1] + " recebeu incorretamente novo voto");
+      return ballondorInstance.candidates(2);
+    }).then(function(candidate) {
+      assert.equal(candidate[2], '0', "Candidato " + candidate[1] + " recebeu incorretamente novo voto");
+      return ballondorInstance.candidates(2);
+    }).then(function(candidate) {
+      assert.equal(candidate[2], '0', "Candidato " + candidate[1] + " recebeu incorretamente novo voto");
+      return ballondorInstance.candidates(2);
+    }).then(function(candidate) {
+      assert.equal(candidate[2], '0', "Candidato " + candidate[1] + " recebeu incorretamente novo voto");
+      return ballondorInstance.candidates(2);
     });
   });
 
