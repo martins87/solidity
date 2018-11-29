@@ -125,5 +125,28 @@ contract("BallondOr", function() {
   });
 
   // testar lançamento de exceção para voto duplo do mesmo endereço
+  it("Lança excessão para tentativa de voto duplo do mesmo endereço", function() {
+    /* testar:
+        - mensagem de erro com revert
+        - candidato específico não teve voto duplo computado
+    */
+    return BallondOr.deployed().then(function(instance) {
+      ballondorInstance = instance;
+      account = web3.eth.accounts[7];
+
+      // primeiro voto para o candidato 1 do endereço 7
+      instance.vote(candidateId, { from: account });
+
+      return ballondorInstance.candidates(candidateId);
+    }).then(function(candidate) {
+      // verificar que o voto do endereço 7 foi commputado
+      assert.equal(candidate[2], '2');
+
+      // tentar segundo voto no candidato 1 do mesmo endereço
+      return ballondorInstance.vote(candidateId, { from: account });
+    }).then(assert.fail).catch(function(error) {
+      assert(error.message.indexOf('revert') >= 0);
+    });
+  });
 
 });
