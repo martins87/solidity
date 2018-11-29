@@ -2,6 +2,8 @@ var BallondOr = artifacts.require("BallondOr.sol");
 
 contract("BallondOr", function() {
 
+  // chai assertion library: https://www.chaijs.com/api/assert/
+
   var ballondorInstance;
   var candidateId;
   var account;
@@ -12,7 +14,8 @@ contract("BallondOr", function() {
         - número correto de candidatos inicializados
     */
     return BallondOr.deployed().then(function(instance) {
-      return instance.totalCandidates();
+      ballondorInstance = instance;
+      return ballondorInstance.totalCandidates();
     }).then(function(totalCandidates) {
       assert.equal(totalCandidates, 6);
     });
@@ -87,8 +90,17 @@ contract("BallondOr", function() {
       assert.equal(candidate[2].toNumber(), 1);
     });
   });
-  
+
   // testar lançamento de exceção para voto em candidato inválido
+  it("Lança exceção para voto em candidato inválido", function() {
+    BallondOr.deployed().then(function(instance) {
+      ballondorInstance = instance;
+      return ballondorInstance.vote(79, { from: account });
+    }).then(assert.fail).catch(function(error) {
+      assert(error.message.indexOf('revert') >= 0);
+    });
+  });
+
   // testar lançamento de exceção para voto duplo do mesmo endereço
 
 });
