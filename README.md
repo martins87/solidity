@@ -1,1 +1,1 @@
-# solidity-projects
+# Just some Solidity code
