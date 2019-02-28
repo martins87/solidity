@@ -2,12 +2,12 @@ pragma solidity ^0.4.24;
 
 contract WorldCupWinners{
     
-    struct team {
+    struct Team {
         string name;
         int titles;
     }
     
-    team[] teams;
+    Team[] teams;
     int numberOfChampions;
     
     function addWorldCupWinner(string _team) public returns (bool) {
@@ -19,11 +19,12 @@ contract WorldCupWinners{
             if(stringsEqual(teams[i].name, _team)) {
                 teams[i].titles++;
                 newChampion = false;
+                break;
             }
         }
         // new champion
         if (newChampion) {
-            teams.push(team(_team, 1));
+            teams.push(Team(_team, 1));
             numberOfChampions++;
         }
         return true;
@@ -66,4 +67,28 @@ contract WorldCupWinners{
         }
         return true;
     }
+    
+    /*
+Uruguay
+Italy
+Italy
+Uruguay
+Germany
+Brazil
+Brazil
+England
+Brazil
+Germany
+Argentina
+Italy
+Argentina
+Germany
+Brazil
+France
+Brazil
+Italy
+Spain
+Germany
+France
+    */
 }
